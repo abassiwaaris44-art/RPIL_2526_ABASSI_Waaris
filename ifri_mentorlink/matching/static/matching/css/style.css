@@ -1,0 +1,380 @@
+/* ------------------------------------------------------------------
+   IFRI_MentorLink — feuille de style
+   Direction : "carnet de cours" académique — encre profonde, parchemin,
+   sceau doré. Cartes-résultats pensées comme des fiches de mentorat.
+------------------------------------------------------------------- */
+
+:root{
+  --ink:        #1B2430;
+  --ink-soft:   #3A4658;
+  --paper:      #EFEAD8;
+  --paper-dim:  #E4DEC8;
+  --paper-line: #D8CFB0;
+  --gold:       #C08A2E;
+  --gold-deep:  #9C6B1E;
+  --pine:       #3E6259;
+  --pine-soft:  #E4EEE9;
+  --rust:       #A8462E;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius: 3px;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* subtle paper-grain texture over the dark background */
+.grain{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------
+   Masthead
+------------------------------------------------------------------- */
+.masthead{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+}
+
+.masthead__mark{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.eyebrow{
+  margin: 0 0 2px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.masthead h1{
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------
+   Layout
+------------------------------------------------------------------- */
+.layout{
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 24px 64px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 820px){
+  .layout{ grid-template-columns: 1fr; }
+}
+
+.panel{
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.panel--form{
+  position: sticky;
+  top: 24px;
+  border-top: 3px solid var(--gold);
+}
+
+@media (max-width: 820px){
+  .panel--form{ position: static; }
+}
+
+.panel h2{
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.panel__hint{
+  margin: 0 0 24px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------
+   Form
+------------------------------------------------------------------- */
+.field{
+  margin-bottom: 20px;
+}
+
+.field label{
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.required{ color: var(--rust); }
+.optional{ color: var(--ink-soft); font-weight: 400; }
+
+.field input{
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius);
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+.field input:focus{
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(192, 138, 46, 0.18);
+}
+
+.field__help{
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.btn-search{
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+}
+
+.btn-search:hover{ background: var(--ink-soft); }
+.btn-search:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn-search:disabled{ opacity: 0.6; cursor: wait; }
+
+/* ------------------------------------------------------------------
+   Results panel
+------------------------------------------------------------------- */
+.results__header{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.results__count{
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.empty-state{
+  padding: 40px 12px;
+  text-align: center;
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+}
+
+.empty-state p{ margin: 0 0 8px; font-size: 14.5px; }
+.empty-state__sub{ font-size: 12.5px; color: var(--ink-soft); margin-bottom: 0 !important; }
+
+.error-state{
+  padding: 16px;
+  border-left: 3px solid var(--rust);
+  background: #F6E6E1;
+  color: #7A2E1B;
+  font-size: 13.5px;
+  border-radius: var(--radius);
+}
+
+.results-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ------------------------------------------------------------------
+   Mentor card — styled like a mentoring "index card"
+------------------------------------------------------------------- */
+.mentor-card{
+  position: relative;
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius);
+  background: #FCFAF3;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.mentor-card::before{
+  /* perforated left edge, evoking a torn card from a course ledger */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background-image: repeating-linear-gradient(to bottom, var(--paper-line) 0 4px, transparent 4px 9px);
+}
+
+.mentor-card__name{
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 17.5px;
+  font-weight: 600;
+}
+
+.mentor-card__meta{
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.mentor-card__row{
+  font-size: 13px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.mentor-card__row strong{
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.chip{
+  font-size: 11.5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--pine-soft);
+  color: var(--pine);
+  font-weight: 600;
+  border: 1px solid rgba(62, 98, 89, 0.25);
+}
+
+.chip--format{
+  background: #F2EAD9;
+  color: var(--gold-deep);
+  border-color: rgba(192, 138, 46, 0.3);
+}
+
+/* score seal */
+.score-seal{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.score-seal__value{
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.score-seal__label{
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.score-seal--high{ border-color: var(--pine); }
+.score-seal--high .score-seal__value{ color: var(--pine); }
+
+/* ------------------------------------------------------------------
+   Footer
+------------------------------------------------------------------- */
+.site-footer{
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  text-align: center;
+}
+
+.site-footer p{
+  font-size: 12px;
+  color: rgba(239, 234, 216, 0.5);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
+}

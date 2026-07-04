@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFRI_MentorLink — Trouver un mentor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'matching/css/style.css' %}">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="masthead">
+  <div class="masthead__mark">IM</div>
+  <div class="masthead__text">
+    <p class="eyebrow">IFRI — Réseau de mentorat étudiant</p>
+    <h1>MentorLink</h1>
+  </div>
+</header>
+
+<main class="layout">
+
+  <section class="panel panel--form" aria-labelledby="form-title">
+    <h2 id="form-title">Décrivez ce que vous cherchez</h2>
+    <p class="panel__hint">Trois informations suffisent : la matière, le créneau, et si vous le souhaitez votre filière.</p>
+
+    <form id="search-form" novalidate>
+      <div class="field">
+        <label for="subjects">Matières / compétences recherchées <span class="required">*</span></label>
+        <input type="text" id="subjects" name="subjects" placeholder="ex : Python, Algorithmique" autocomplete="off" required>
+        <p class="field__help">Séparez plusieurs matières par une virgule.</p>
+      </div>
+
+      <div class="field">
+        <label for="time">Heure souhaitée <span class="required">*</span></label>
+        <input type="time" id="time" name="time" required>
+        <p class="field__help">Tolérance de recherche : ± 1 heure autour de ce créneau.</p>
+      </div>
+
+      <div class="field">
+        <label for="filiere">Filière <span class="optional">(optionnel)</span></label>
+        <input type="text" id="filiere" name="filiere" placeholder="ex : Génie Logiciel(GL)" autocomplete="off">
+      </div>
+
+      <button type="submit" class="btn-search">
+        <span>Rechercher un mentor</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7 12.5A5.5 5.5 0 1 0 7 1.5a5.5 5.5 0 0 0 0 11ZM14.5 14.5 11 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+  </section>
+
+  <section class="panel panel--results" aria-live="polite">
+    <div class="results__header">
+      <h2>Mentors compatibles</h2>
+      <span id="results-count" class="results__count"></span>
+    </div>
+
+    <div id="results-state">
+      <div class="empty-state">
+        <p>Renseignez le formulaire pour lancer une recherche.</p>
+        <p class="empty-state__sub">Le score de compatibilité tient compte des matières en commun, du créneau horaire et, si indiquée, de votre filière.</p>
+      </div>
+    </div>
+
+    <ul id="results-list" class="results-list" hidden></ul>
+  </section>
+
+</main>
+
+
+<script src="{% static 'matching/js/script.js' %}"></script>
+</body>
+</html>
